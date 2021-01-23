@@ -18,6 +18,7 @@
     "59 23 * * * https://raw.githubusercontent.com/zZPiglet/Task/master/DiDi/DiDi_reward.js, tag=滴滴出行奖励, img-url=https://raw.githubusercontent.com/Orz-3/task/master/didi.png,enabled=true",
     "1 0 * * * https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js, tag=奈雪, img-url=https://raw.githubusercontent.com/Orz-3/task/master/Naixue.png,enabled=true",
     "4 0 * * * https://raw.githubusercontent.com/nzw9314/QuantumultX/master/Task/ctrip.js, tag=携程旅行, img-url=https://raw.githubusercontent.com/Orz-3/task/master/ctrip.png,enabled=true",
-    "4 0 * * * https://raw.githubusercontent.com/nzw9314/QuantumultX/master/Task/ct_sign.js, tag=携程旅行小程序, img-url=https://raw.githubusercontent.com/Orz-3/task/master/ctrip.png,enabled=true"
+    "4 0 * * * https://raw.githubusercontent.com/nzw9314/QuantumultX/master/Task/ct_sign.js, tag=携程旅行小程序, img-url=https://raw.githubusercontent.com/Orz-3/task/master/ctrip.png,enabled=true",
+    "6 0 * * * https://raw.githubusercontent.com/Sunert/Scripts/master/Task/weibo.js, tag=微博, img-url=https://raw.githubusercontent.com/Orz-3/task/master/weibo.png,enabled=true"
  ]
 }
