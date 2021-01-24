@@ -2,7 +2,7 @@
  "name": "Ethan task gallery",
  "description": "https://github.com/EthanWDC/QuantumultX",
  "task": [
-    "2 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/box/switcher/box.switcher.js, tag=BoxJs会话切换, img-url=https://github.com/Orz-3/task/blob/master/box.png,enabled=true",
+    "2 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/box/switcher/box.switcher.js, tag=BoxJs会话切换, img-url=https://raw.githubusercontent.com/Orz-3/task/master/box.png,enabled=true",
     "1,3 0 * * * https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js, tag=NobyDa 京东多合一签到, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png,enabled=true",
     "1,2,3 0 * * * https://raw.githubusercontent.com/NobyDa/Script/master/BDTieBa-DailyBonus/TieBa.js, tag=NobyDa 贴吧签到, img-url=https://raw.githubusercontent.com/Orz-3/task/master/tieba.png,enabled=true",
     "1 0 * * * https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js, tag=NobyDa 爱奇艺签到, img-url=https://raw.githubusercontent.com/Orz-3/task/master/iQIYI.png,enabled=true",
