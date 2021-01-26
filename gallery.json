@@ -22,6 +22,7 @@
     "4 0 * * * https://raw.githubusercontent.com/nzw9314/QuantumultX/master/Task/ctrip.js, tag=携程旅行, img-url=https://raw.githubusercontent.com/Orz-3/task/master/ctrip.png,enabled=true",
     "4 0 * * * https://raw.githubusercontent.com/nzw9314/QuantumultX/master/Task/ct_sign.js, tag=携程旅行小程序, img-url=https://raw.githubusercontent.com/Orz-3/task/master/ctrip.png,enabled=true",
     "6 0 * * * https://raw.githubusercontent.com/Sunert/Scripts/master/Task/weibo.js, tag=微博, img-url=https://raw.githubusercontent.com/Orz-3/task/master/weibo.png,enabled=true",
-    "2 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/Orz-3/task/master/feng.png,enabled=true"
+    "2 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/feng/feng.js, tag=威锋网, img-url=https://raw.githubusercontent.com/Orz-3/task/master/feng.png,enabled=true",
+    "5 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/smzdm/quanx/smzdm.js, tag=什么值得买, img-url=https://raw.githubusercontent.com/Orz-3/task/master/smzdm.png,enabled=true"
   ]
 }
