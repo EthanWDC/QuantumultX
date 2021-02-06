@@ -1,5 +1,5 @@
 const cookieName = '上海移动'
-const tokenKey = 'ethan_token_10086_SH'
+const tokenKey = 'ethan_10086_SH_token'
 const ethan_10086_sh = init()
 
 const requrl = $request.url
