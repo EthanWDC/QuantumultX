@@ -26,30 +26,6 @@ function getLoginAdd(cb) {
   })
 }
 
-function sign() {
-  loginapp(() => {
-    const url = { url: signurlVal, headers: JSON.parse(signheaderVal) }
-    chavy.get(url, (error, response, data) => {
-      chavy.log(`${cookieName}, data: ${data}`)
-      const result = JSON.parse(data)
-      let subTitle = ``
-      let detail = ``
-      if (result.rtnCode == '0') {
-        subTitle = `签到结果: 成功`
-        detail = `连签: ${result.object.signDays}天`
-      } else if (result.rtnCode == '-9999' && result.object.status == '50001') {
-        subTitle = `签到结果: 成功 (重复签到)`
-        detail = `说明: ${result.object.message}`
-      } else {
-        subTitle = `签到结果: 失败`
-        detail = `说明: 详见日志`
-      }
-      chavy.msg(cookieName, subTitle, detail)
-      chavy.done()
-    })
-  })
-}
-
 function loginapp() {
   getLoginAdd(() => {
     ethan_10086_sh.log(loginAdd)
