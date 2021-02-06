@@ -1,4 +1,5 @@
 const cookieName = '上海移动'
+const tokenbodyKey = 'ethan_10086_SH_tokenbody'
 const tokenKey = 'ethan_10086_SH_token'
 const ethan_10086_sh = init()
 
@@ -7,6 +8,7 @@ const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
   const loginbodyObj = JSON.parse($request.body)
   const tokenVal = loginbodyObj.device.token
+  if ($request.body) ethan_10086_sh.setdata($request.body, tokenbodyKey)
   if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
