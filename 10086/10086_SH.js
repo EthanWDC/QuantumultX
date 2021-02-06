@@ -1,37 +1,31 @@
 const cookieName = '上海移动签到'
-const tokenbodyKey = 'ethan_10086_SH_tokenbody'
-const tokenKey = 'chavy_tokenheader_10086'
-//const tokenKey = 'ethan_10086_SH_token'
+//const tokenurlKey = 'ethan_10086_SH_tokenurl'
+//const tokenheaderKey = 'ethan_10086_SH_tokenheader'
+//const tokenbodyKey = 'ethan_10086_SH_tokenbody'
+const tokenurlKey = 'chavy_tokenurl_10086'
+const tokenheaderKey = 'chavy_tokenheader_10086'
+const tokenbodyKey = 'chavy_getfee_cmcc'
+const tokenKey = 'ethan_10086_SH_token'
+
 const ethan_10086_sh = init()
+
+const tokenurlVal = ethan_10086_sh.getdata(tokenurlKey)
+const tokenheaderVal = ethan_10086_sh.getdata(tokenheaderKey)
+const tokenbodyVal = ethan_10086_sh.getdata(tokenbodyKey)
 const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
 function sign() {
-  const url = { url: signurlVal, headers: JSON.parse(signheaderVal), body: signBodyVal }
-  chavy.post(url, (error, response, data) => {
-    chavy.log(`${cookieName}, data: ${data}`)
+  const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenBodyVal }
+  ethan_10086_sh.post(url, (error, response, data) => {
+    ethan_10086_sh.log(`${cookieName}, data: ${data}`)
     const result = JSON.parse(data)
     let subTitle = ``
-    let detail = ``
-    if (result.code == 0) {
-      subTitle = `签到结果: 成功`
-      detail = `本周连签: ${result.data[0].circleSignTimes}天`
-      for (r of result.data[0].signInAwardRecords) {
-        const rinfo = JSON.parse(r.info)
-        if (rinfo.type == `cash`) detail += `, 奖励金: ${rinfo.amount / 100}元`
-        else if (rinfo.type == `coupon`) detail += `\n优惠券: ${rinfo.name}: ${rinfo.amount}元 (${rinfo.condition})`
-        else detail += `\n未知奖励!`
-      }
-    } else if (result.code == 2002) {
-      subTitle = `签到结果: 成功 (重复签到)`
-      detail = `说明: ${result.msg}`
-    } else {
-      subTitle = `签到结果: 失败`
-      detail = `编码: ${result.code}, 说明: ${result.msg}`
-    }
-    chavy.msg(cookieName, subTitle, detail)
-    chavy.done()
+    let detail = result.data.webUrl
+    
+    ethan_10086_sh.msg(cookieName, subTitle, detail)
+    ethan_10086_sh.done()
   })
 }
 
