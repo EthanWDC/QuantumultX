@@ -21,8 +21,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   //if (signheaderVal) chavy.setdata(signheaderVal, signheaderKey)
   //title = chavy.msg(cookieName, `获取Cookie: 成功`, ``)
   const loginbodyObj = JSON.parse($request.body)
-  let deviceObj = JSON.parse(loginbodyObj['device'])
-  const tokenVal = deviceObj['token']
+  const tokenVal = loginbodyObj.device.token
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
 
