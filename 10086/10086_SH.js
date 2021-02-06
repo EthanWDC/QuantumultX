@@ -32,13 +32,15 @@ function loginApp(loginAdd) {
   ethan_10086_sh.get(url, (error, response, data) => {
     ethan_10086_sh.log(`${cookieName}, data: ${data}`)
     const result = JSON.parse(data)
-    ethan_10086_sh.done()
   })
 }
 
 function sign() {
   let loginAdd = getLoginAdd()
-  loginApp(loginAdd)
+  if(loginAdd){
+    loginApp(loginAdd)
+  }
+  ethan_10086_sh.done()
 }
 
 function init() {
