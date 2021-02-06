@@ -14,12 +14,14 @@ const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
   const tokenurlVal = requrl
   const tokenheaderVal = JSON.stringify($request.headers)
-  let bodystr = $request.body.replace(/"uId":"([^"]*)"/, '"uId":"${tokenuid}"')
-  const loginbodyObj = JSON.parse(bodystr)
-  const tokenVal = loginbodyObj.device.token
+  //let bodystr = $request.body.replace(/"uId":"([^"]*)"/, '"uId":"${tokenuid}"')
+  const tokenbodyObj = JSON.parse($request.body)
+  const tokenVal = tokenbodyObj.device.token
+  tokenbodyObj.body.uId = tokenuid
+  tokenbodyVal = JSON.stringify(tokenbodyObj)
   if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
   if (tokenheaderVal) ethan_10086_sh.setdata(tokenheaderVal, tokenheaderKey)
-  if (bodystr) ethan_10086_sh.setdata(bodystr, tokenbodyKey)
+  if (tokenbodyVal) ethan_10086_sh.setdata(tokenbodyVal, tokenbodyKey)
   if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
