@@ -22,19 +22,20 @@ function getLoginAdd(cb) {
     ethan_10086_sh.log(`${cookieName}, getLoginAdd-data: ${data}`)
     const result = JSON.parse(data)
     let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, `busicode=200722`)
-    ethan_10086_sh.log(`${loginAdd}`)
     cb()
   })
 }
 
 function loginapp(cb) {
   getLoginAdd(() => {
+    ethan_10086_sh.log(loginAdd)
     const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
     ethan_10086_sh.get(url, (error, response, data) => {
       ethan_10086_sh.log(`${cookieName}, data: ${data}`)
       const result = JSON.parse(data)
 
 //      chavy.msg(cookieName, subTitle, detail)
+      cb()
       ethan_10086_sh.done()
     })
   })
