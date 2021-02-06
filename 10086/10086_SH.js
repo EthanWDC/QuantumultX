@@ -48,7 +48,7 @@ function getartaddress() {
       try {
         console.log('Data:' + data)
         console.log('Artifact-Address:' + resp.statusCode)
-        console.log('Artifact-Address2:' + resp.headers['set-cookie'])
+        console.log('Artifact-Address2:' + resp.headers['Set-Cookie'])
       } catch (e) {
         $.logErr(e, resp)
       } finally {
