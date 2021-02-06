@@ -27,7 +27,9 @@ function loginapp() {
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
-        //console.log($.setck)
+        $.uid = $.setck.match(/UID=.+?;/)
+        console.log($.setck)
+        console.log($.uid)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -119,7 +121,6 @@ function showmsg() {
     $.msg($.name, $.subt, $.desc.join('\n'))
     resolve()
   })
-}
 }
  
 // prettier-ignore
