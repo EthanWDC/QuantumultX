@@ -6,7 +6,7 @@ const tokenurlKey = 'chavy_tokenurl_10086'
 const tokenheaderKey = 'chavy_tokenheader_10086'
 const tokenbodyKey = 'chavy_getfee_cmcc'
 const tokenKey = 'ethan_10086_SH_token'
-const uid = '1088' //强制转向activity2.sh.chinamobile.com的h5应用
+const tokenuid = '1088' //强制转向activity2.sh.chinamobile.com的h5应用
 const ethan_10086_sh = init()
 
 const requrl = $request.url
@@ -14,7 +14,7 @@ const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
   const tokenurlVal = requrl
   const tokenheaderVal = JSON.stringify($request.headers)
-  let bodystr = $request.body.replace(/"uId":"([^"]*)"/, '"uId":"${uid}"')
+  let bodystr = $request.body.replace(/"uId":"([^"]*)"/, '"uId":"${tokenuid}"')
   const loginbodyObj = JSON.parse(bodystr)
   const tokenVal = loginbodyObj.device.token
   if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
