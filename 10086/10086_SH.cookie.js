@@ -14,7 +14,6 @@ const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
   const tokenurlVal = requrl
   const tokenheaderVal = JSON.stringify($request.headers)
-  //let bodystr = $request.body.replace(/"uId":"([^"]*)"/, '"uId":"${tokenuid}"')
   const tokenbodyObj = JSON.parse($request.body)
   const tokenVal = tokenbodyObj.device.token
   tokenbodyObj.body.uId = tokenuid
