@@ -19,7 +19,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   const tokenVal = loginbodyObj.device.token
   if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
   if (tokenheaderVal) ethan_10086_sh.setdata(tokenheaderVal, tokenheaderKey)
-  if ($request.body) ethan_10086_sh.setdata($request.body, tokenbodyKey)
+  if (bodystr) ethan_10086_sh.setdata(bodystr, tokenbodyKey)
   if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
