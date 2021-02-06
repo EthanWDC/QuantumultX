@@ -42,9 +42,8 @@ function loginapp() {
 function getartaddress() {
   return new Promise((resolve) => {
     const url = JSON.parse($.getdata($.KEY_autologin))
-    let options = {"followRedirect": "false"}
     url.url = 'https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&' + $.uid
-    url.push(options)
+    url.followRedirect = 'false'
     console.log(url.followRedirect)
     $.get(url, (err, resp, data) => {
       try {
