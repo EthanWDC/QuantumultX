@@ -14,6 +14,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   const tokenurlVal = requrl
   const tokenheaderVal = JSON.stringify($request.headers)
   const loginbodyObj = JSON.parse($request.body)
+  loginbodyObj.body.uid = '1088'
   const tokenVal = loginbodyObj.device.token
   if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
   if (tokenheaderVal) ethan_10086_sh.setdata(tokenheaderVal, tokenheaderKey)
