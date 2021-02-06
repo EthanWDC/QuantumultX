@@ -20,7 +20,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   //if (signurlVal) chavy.setdata(signurlVal, signurlKey)
   //if (signheaderVal) chavy.setdata(signheaderVal, signheaderKey)
   //title = chavy.msg(cookieName, `获取Cookie: 成功`, ``)
-  const loginbodyVal = JSON.stringify($request.body)
+  const loginbodyVal = $request.body
   title = ethan_cm.msg(cookieName, loginbodyVal, ``)
 }
 
