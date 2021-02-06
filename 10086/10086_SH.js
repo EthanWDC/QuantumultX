@@ -27,7 +27,7 @@ function loginapp() {
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
-        console.log($.setck)
+        //console.log($.setck)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
