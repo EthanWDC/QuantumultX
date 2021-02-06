@@ -46,6 +46,7 @@ function getartaddress() {
     url.headers['Cookie'] = $.setck
     $.get(url, (err, resp, data) => {
       try {
+        console.log('Data:' + data)
         console.log('Artifact-Address:' + resp)
         console.log('Artifact-Address2:' + resp.headers)
       } catch (e) {
