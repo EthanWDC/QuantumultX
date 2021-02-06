@@ -1,10 +1,10 @@
-const cookieName = '中国移动'
+const cookieName = '上海移动'
 //const tokenKey = 'ethan_token_10086'
 //const tokenurlKey = 'chavy_tokenurl_10086'
 //const tokenheaderKey = 'chavy_tokenheader_10086'
 //const signurlKey = 'chavy_signurl_10086'
 //const signheaderKey = 'chavy_signheader_10086'
-const ethan_cm = init()
+const ethan_10086_sh = init()
 
 const requrl = $request.url
 const reqRef = $request.headers.Referer
@@ -67,4 +67,4 @@ function init() {
   }
   return { isSurge, isQuanX, msg, log, getdata, setdata, get, post, done }
 }
-ethan_cm.done()
+ethan_10086_sh.done()
