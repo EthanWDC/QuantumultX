@@ -44,8 +44,7 @@ function getartaddress() {
     const url = 'https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&' + $.uid
     $.get(url, (err, resp, data) => {
       try {
-        $.artaddress = resp.statusCode
-        console.log('Artifact-Address:' + $.artaddress)
+        console.log('Artifact-Address:' + resp)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
