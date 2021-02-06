@@ -16,31 +16,29 @@ const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
-function getLoginAdd(cb) {
+function getLoginAdd() {
   const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
   ethan_10086_sh.post(url, (error, response, data) => {
     ethan_10086_sh.log(`${cookieName}, getLoginAdd-data: ${data}`)
     const result = JSON.parse(data)
     let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, `busicode=200722`) //替换为签到的business code 200722
-    cb()
+    return loginAdd
   })
 }
 
-function loginapp() {
-  getLoginAdd(() => {
-    ethan_10086_sh.log(loginAdd)
-    const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
-    ethan_10086_sh.get(url, (error, response, data) => {
-      ethan_10086_sh.log(`${cookieName}, data: ${data}`)
-      const result = JSON.parse(data)
-      ethan_10086_sh.done()
-//      chavy.msg(cookieName, subTitle, detail)
-    })
+function loginApp(loginAdd) {
+  ethan_10086_sh.log(loginAdd)
+  const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
+  ethan_10086_sh.get(url, (error, response, data) => {
+    ethan_10086_sh.log(`${cookieName}, data: ${data}`)
+    const result = JSON.parse(data)
+    ethan_10086_sh.done()
   })
 }
 
 function sign() {
-  loginapp();
+  let loginAdd = getLoginAdd()
+  loginApp(loginAdd)
 }
 
 function init() {
