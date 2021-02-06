@@ -45,6 +45,7 @@ function getartaddress() {
     $.get(url, (err, resp, data) => {
       try {
         console.log('Artifact-Address:' + resp)
+        console.log('Artifact-Address2:' + resp.headers)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
