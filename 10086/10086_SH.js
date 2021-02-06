@@ -31,7 +31,7 @@ function loginApp(loginAdd) {
   const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
   ethan_10086_sh.get(url, (error, response, data) => {
     ethan_10086_sh.log(`${cookieName}, data: ${data}`)
-    const result = JSON.parse(data)
+    const result = JSON.parse(data) 
   })
 }
 
