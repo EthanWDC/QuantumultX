@@ -16,7 +16,7 @@ const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
-function getLoginAdd() {
+async function getLoginAdd() {
   let loginAdd = ''
   const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
   ethan_10086_sh.post(url, (error, response, data) => {
@@ -27,7 +27,7 @@ function getLoginAdd() {
   return loginAdd
 }
 
-function loginApp(loginAdd) {
+async function loginApp(loginAdd) {
   ethan_10086_sh.log(loginAdd)
   const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
   ethan_10086_sh.get(url, (error, response, data) => {
@@ -37,9 +37,9 @@ function loginApp(loginAdd) {
 }
 
 function sign() {
-  let loginAdd = getLoginAdd()
+  let loginAdd = await getLoginAdd()
   if(loginAdd){
-    loginApp(loginAdd)
+    await loginApp(loginAdd)
   }
   ethan_10086_sh.done()
 }
