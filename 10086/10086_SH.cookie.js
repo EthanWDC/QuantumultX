@@ -6,6 +6,7 @@ const tokenurlKey = 'chavy_tokenurl_10086'
 const tokenheaderKey = 'chavy_tokenheader_10086'
 const tokenbodyKey = 'chavy_getfee_cmcc'
 const tokenKey = 'ethan_10086_SH_token'
+const uid = '1088' //强制转向activity2.sh.chinamobile.com的h5应用
 const ethan_10086_sh = init()
 
 const requrl = $request.url
@@ -14,7 +15,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   const tokenurlVal = requrl
   const tokenheaderVal = JSON.stringify($request.headers)
   const loginbodyObj = JSON.parse($request.body)
-  loginbodyObj.body.uid = '1088'
+  loginbodyObj.body.uid = uid
   const tokenVal = loginbodyObj.device.token
   if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
   if (tokenheaderVal) ethan_10086_sh.setdata(tokenheaderVal, tokenheaderKey)
