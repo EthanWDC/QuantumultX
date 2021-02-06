@@ -1,27 +1,13 @@
 const cookieName = '上海移动'
-//const tokenKey = 'ethan_token_10086'
-//const tokenurlKey = 'chavy_tokenurl_10086'
-//const tokenheaderKey = 'chavy_tokenheader_10086'
-//const signurlKey = 'chavy_signurl_10086'
-//const signheaderKey = 'chavy_signheader_10086'
+const tokenKey = 'ethan_token_10086_SH'
 const ethan_10086_sh = init()
 
 const requrl = $request.url
 const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
- // const tokenurlVal = requrl
-  //const tokenheaderVal = JSON.stringify($request.headers)
- // if (tokenurlVal) chavy.setdata(tokenurlVal, tokenurlKey)
-  //if (tokenheaderVal) chavy.setdata(tokenheaderVal, tokenheaderKey)
-  //title = chavy.msg(cookieName, `获取刷新链接: 成功`, ``)
-//} else if ($request && $request.method != 'OPTIONS' && requrl.indexOf('website/taskCenter/sign') >= 0) {
-  //const signurlVal = requrl
-  //const signheaderVal = JSON.stringify($request.headers)
-  //if (signurlVal) chavy.setdata(signurlVal, signurlKey)
-  //if (signheaderVal) chavy.setdata(signheaderVal, signheaderKey)
-  //title = chavy.msg(cookieName, `获取Cookie: 成功`, ``)
   const loginbodyObj = JSON.parse($request.body)
   const tokenVal = loginbodyObj.device.token
+  if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
 
