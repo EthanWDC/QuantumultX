@@ -14,6 +14,7 @@ $.KEY_getfee = 'chavy_getfee_cmcc'
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
+  await getartifact()
   //await queryfee()
   //await querymeal()
   //await showmsg()
@@ -29,7 +30,21 @@ function loginapp() {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
         $.uid = $.setck.match(/UID=.+?;/)
         console.log($.setck)
-        console.log($.uid)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+function getartifact() {
+  return new Promise((resolve) => {
+    const url = 'https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&' + $.uid
+    $.get(url, (err, resp, data) => {
+      try {
+        console.log(data)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
