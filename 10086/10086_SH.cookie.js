@@ -1,16 +1,24 @@
 const cookieName = '上海移动'
-const tokenbodyKey = 'ethan_10086_SH_tokenbody'
+//const tokenurlKey = 'ethan_10086_SH_tokenurl'
+//const tokenheaderKey = 'ethan_10086_SH_tokenheader'
+//const tokenbodyKey = 'ethan_10086_SH_tokenbody'
+const tokenurlKey = 'chavy_tokenurl_10086'
+const tokenheaderKey = 'chavy_tokenheader_10086'
+const tokenbodyKey = 'chavy_getfee_cmcc'
 const tokenKey = 'ethan_10086_SH_token'
 const ethan_10086_sh = init()
 
 const requrl = $request.url
 const reqRef = $request.headers.Referer
 if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 && requrl.indexOf('freeLogin2') >= 0) {
+  const tokenurlVal = requrl
+  const tokenheaderVal = JSON.stringify($request.headers)
   const loginbodyObj = JSON.parse($request.body)
   const tokenVal = loginbodyObj.device.token
+  if (tokenurlVal) ethan_10086_sh.setdata(tokenurlVal, tokenurlKey)
+  if (tokenheaderVal) ethan_10086_sh.setdata(tokenheaderVal, tokenheaderKey)
   if ($request.body) ethan_10086_sh.setdata($request.body, tokenbodyKey)
   if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
-  if (tokenVal) ethan_10086_sh.setdata(tokenVal, 'chavy_tokenheader_10086')
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
 
