@@ -16,27 +16,20 @@ const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
-function getaddress(cb) {
+function getLoginAdd(cb) {
   const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
   ethan_10086_sh.post(url, (error, response, data) => {
-    ethan_10086_sh.log(`${cookieName}, getaddress-data: ${data}`)
+    ethan_10086_sh.log(`${cookieName}, getLoginAdd-data: ${data}`)
     const result = JSON.parse(data)
-    let subTitle = ``
-    let detail = result.data.webUrl
+    let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, 'busicode=200722')
     cb()
   })
 }
 
 function sign() {
-  const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
-  ethan_10086_sh.post(url, (error, response, data) => {
-    ethan_10086_sh.log(`${cookieName}, data: ${data}`)
-    const result = JSON.parse(data)
-    let subTitle = ``
-    let detail = result.data.webUrl
-    
-    ethan_10086_sh.msg(cookieName, subTitle, detail)
-    ethan_10086_sh.done()
+  getLoginAdd(() => {
+      ethan_10086_sh.msg(cookieName, "1111", loginAdd)
+      ethan_10086_sh.done()
   })
 }
 
