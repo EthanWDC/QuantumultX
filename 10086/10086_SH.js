@@ -17,11 +17,12 @@ const tokenVal = ethan_10086_sh.getdata(tokenKey)
 sign()
 
 function getLoginAdd() {
+  let loginAdd = ''
   const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
   ethan_10086_sh.post(url, (error, response, data) => {
     ethan_10086_sh.log(`${cookieName}, getLoginAdd-data: ${data}`)
     const result = JSON.parse(data)
-    let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, `busicode=200722`) //替换为签到的business code 200722
+    loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, `busicode=200722`) //替换为签到的business code 200722
   })
   return loginAdd
 }
