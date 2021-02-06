@@ -1,15 +1,9 @@
-const cookieName = '美团'
-const tokenurlKey = 'chavy_tokenurl_meituan'
-const tokenheaderKey = 'chavy_tokenheader_meituan'
-const signurlKey = 'chavy_signurl_meituan'
-const signheaderKey = 'chavy_signheader_meituan'
-const signbodyKey = 'chavy_signbody_meituan'
-const chavy = init()
-const tokenurlVal = chavy.getdata(tokenurlKey)
-const tokenheaderVal = chavy.getdata(tokenheaderKey)
-const signurlVal = chavy.getdata(signurlKey)
-const signheaderVal = chavy.getdata(signheaderKey)
-const signBodyVal = chavy.getdata(signbodyKey)
+const cookieName = '上海移动签到'
+const tokenbodyKey = 'ethan_10086_SH_tokenbody'
+const tokenKey = 'chavy_tokenheader_10086'
+//const tokenKey = 'ethan_10086_SH_token'
+const ethan_10086_sh = init()
+const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
