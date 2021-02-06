@@ -27,9 +27,22 @@ function getLoginAdd(cb) {
   })
 }
 
-function sign() {
+function loginapp(cb) {
   getLoginAdd(() => {
-      ethan_10086_sh.msg(cookieName, "1111", loginAdd)
+    const url = { url: loginAdd, headers: JSON.parse(tokenheaderVal)}
+    ethan_10086_sh.get(url, (error, response, data) => {
+      ethan_10086_sh.log(`${cookieName}, data: ${data}`)
+      const result = JSON.parse(data)
+
+//      chavy.msg(cookieName, subTitle, detail)
+      ethan_10086_sh.done()
+    })
+  })
+}
+
+function sign() {
+  loginapp(() => {
+      //ethan_10086_sh.msg(cookieName, "1111", loginAdd)
       ethan_10086_sh.done()
   })
 }
