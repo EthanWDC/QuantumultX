@@ -10,6 +10,7 @@ if ($request && $request.method != 'OPTIONS' && requrl.indexOf('wtxcx/wx') >= 0 
   const tokenVal = loginbodyObj.device.token
   if ($request.body) ethan_10086_sh.setdata($request.body, tokenbodyKey)
   if (tokenVal) ethan_10086_sh.setdata(tokenVal, tokenKey)
+  if (tokenVal) ethan_10086_sh.setdata(tokenVal, 'chavy_tokenheader_10086')
   title = ethan_10086_sh.msg(cookieName, `获取Token成功` , tokenVal)
 }
 
