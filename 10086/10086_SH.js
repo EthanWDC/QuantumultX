@@ -21,7 +21,8 @@ function getLoginAdd(cb) {
   ethan_10086_sh.post(url, (error, response, data) => {
     ethan_10086_sh.log(`${cookieName}, getLoginAdd-data: ${data}`)
     const result = JSON.parse(data)
-    let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, 'busicode=200722')
+    let loginAdd = result.data.webUrl.replace(/busicode=([^&]*)/, `busicode=200722`)
+    ethan_10086_sh.log(`${loginAdd}`)
     cb()
   })
 }
