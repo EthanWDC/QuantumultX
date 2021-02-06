@@ -16,6 +16,17 @@ const tokenVal = ethan_10086_sh.getdata(tokenKey)
 
 sign()
 
+function getaddress(cb) {
+  const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
+  ethan_10086_sh.post(url, (error, response, data) => {
+    ethan_10086_sh.log(`${cookieName}, getaddress-data: ${data}`)
+    const result = JSON.parse(data)
+    let subTitle = ``
+    let detail = result.data.webUrl
+    cb()
+  })
+}
+
 function sign() {
   const url = { url: tokenurlVal, headers: JSON.parse(tokenheaderVal), body: tokenbodyVal }
   ethan_10086_sh.post(url, (error, response, data) => {
