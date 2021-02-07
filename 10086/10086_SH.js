@@ -10,16 +10,38 @@
 const $ = new Env('上海移动签到')
 $.KEY_autologin = 'ethan_10086_SH_autologin'
 
+$.telNo = ''
 $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
 
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
+  console.log('=====开始签到=====')
   if($.uid){await sign_getartifact()}
   if($.sign_artifact){await sign_channelAuth()}
   if($.sign_actck){await sign_loginactivity()}
   if($.sign_loginactck){await sign_activity()}
-  await showmsg_sign()
+  await preparemsg_sign()
+  console.log('=====开始兑换礼包=====')
+  if($.uid){await exchangegift_getartifact()}
+  if($.exchangegift_artifact){await exchangegift_channelAuth()}
+  if($.exchangegift_actck){await exchangegift_loginactivity()}
+  if($.exchangegift_loginactck){await exchangegift_queryactivity()}
+  if($.exchangegift_loginactck && $.exchangegift_queryresult && $.exchangegift_queryresult.X_RESULTCODE == '0' && $.exchangegift_queryresult.giftList){
+    for(let i=0; i<$.exchangegift_queryresult.giftList.length; i++){
+      if($.exchangegift_queryresult.giftList[i].equityURL || $.exchangegift_queryresult.giftList[i].state != '1'){continue}
+      else{
+         console.log('兑换礼包: '+$.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+'-'+$.exchangegift_queryresult.giftList[i].promotion_order_id+'-'+$.exchangegift_queryresult.giftList[i].res_type)
+         $.orderId = $.exchangegift_queryresult.giftList[i].promotion_order_id
+         $.res_type = $.exchangegift_queryresult.giftList[i].res_type 
+         //await exchangegift_activity()
+         if($.exchangegift_result){
+              $.detail = $.detail + "\n兑换礼包: " + $.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+". 结果: "+$.exchangegift_result.X_RESULTINFO
+         }
+      }
+    }
+  }
+  await showmsg()
 })()
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
@@ -62,7 +84,7 @@ function sign_getartifact() {
 function sign_channelAuth() {
   return new Promise((resolve) => {
     const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/channelAuthority/check`,
-        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.sign_actck}`},
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": ``},
         body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&busicode=200722&forwardapp=JTSJYYT&v=123&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
     }
     $.post(url, (err, resp, data) => {
@@ -121,8 +143,107 @@ function sign_activity() {
   })
 }
 
+function exchangegift_getartifact() {
+  return new Promise((resolve) => {
+    const url = {url: `https://login.10086.cn/AppSSO.action?targetChannelID=00210&targetUrl=https%3A%2F%2Fwww.sh.10086.cn&TransactionID=100210${new Date().getTime()}&UID=${$.uid}&timestamp=${new Date().getTime()}`,
+        headers: {"User-Agent": `${$.user_agent}`}
+    }
+    $.get(url, (err, resp, data) => {
+      try {
+        $.exchangegift_artifact = data.match(/\"art.+?\"/).toString().replace(/\"/g,"")
+        console.log('Artifact:' + $.exchangegift_artifact)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
 
-function showmsg_sign() {
+function exchangegift_channelAuth() {
+  return new Promise((resolve) => {
+    const url = {url: `https://www.sh.10086.cn/h5/server/channelAuthority/check`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": ``},
+        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&busicode=10138&forwardapp=JTSJYYT&v=123&telNo=${$.telNo}&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
+    }
+    $.post(url, (err, resp, data) => {
+      try {
+        $.exchangegift_actck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        let h5_session_id = $.exchangegift_actck.match(/h5\.session\.id=.+?;/)
+        if(h5_session_id){
+          console.log('Channel authority check success:' + h5_session_id)
+        }else{
+          console.log('Channel authority check failed.')
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+function exchangegift_loginactivity() {
+  return new Promise((resolve) => {
+        const url = {url: `https://www.sh.10086.cn/h5/server/login/loginByUidForJT`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.exchangegift_actck}`},
+        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&uid=${$.exchangegift_artifact}&isFirst=true&forwardapp=JTSJYYT&v=123&busicode=10138&telNo=${$.telNo}&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
+    }
+    $.post(url, (err, resp, data) => {
+      try {
+        $.exchangegift_loginactck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        console.log('Login-Activity:' + data)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+function exchangegift_queryactivity() {
+  return new Promise((resolve) => {
+        const url = {url: `https://www.sh.10086.cn/h5/server/mygift/h5_query_mychangegifts`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.exchangegift_actck}`},
+        body: `ajaxSubmitType=post&pageCode=2018032100011156&urlId=&retailForward=&queryType=1&forwardapp=JTSJYYT&v=123&busicode=10138&telNo=${$.telNo}&touchid=210_APP&goodsId=2018032100011156&goodsName=%E6%88%91%E7%9A%84%E7%A4%BC%E5%8C%85&packageId=2018032100011156&packageName=%E6%88%91%E7%9A%84%E7%A4%BC%E5%8C%85`
+    }
+    $.post(url, (err, resp, data) => {
+      try {
+        $.exchangegift_queryresult = JSON.parse(data)
+        //console.log('ChangeGift-Query-Activity:' + data)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+
+function exchangegift_activity() {
+  return new Promise((resolve) => {
+        const url = {url: `https://www.sh.10086.cn/h5/server/mygift/h5_exchange_mygifts`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.exchangegift_actck}`},
+        body: `ajaxSubmitType=post&pageCode=2018032100011156&urlId=&retailForward=&activity_id=20360&orderId=${$.orderId}&res_type=${$.res_type}&forwardapp=JTSJYYT&v=123&busicode=10138&telNo=${$.telNo}&touchid=210_APP&goodsId=2018032100011156&goodsName=%E6%88%91%E7%9A%84%E7%A4%BC%E5%8C%85&packageId=2018032100011156&packageName=%E6%88%91%E7%9A%84%E7%A4%BC%E5%8C%85`
+    }
+    $.post(url, (err, resp, data) => {
+      try {
+        $.exchangegift_result = JSON.parse(data)
+        console.log('ChangeGift-Activity:' + data)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+function preparemsg_sign() {
   return new Promise((resolve) => {
     $.subTitle = ""
     $.detail = ""
@@ -151,9 +272,13 @@ function showmsg_sign() {
       $.subTitle = `签到结果: 失败`
       $.detail = `说明: 详见日志`
     }
-    $.msg($.name, $.subTitle , $.detail)
     resolve()
   })
+}
+
+function showmsg(){
+  $.msg($.name, $.subTitle , $.detail)
+  resolve()
 }
  
 // prettier-ignore
