@@ -277,8 +277,10 @@ function preparemsg_sign() {
 }
 
 function showmsg(){
-  $.msg($.name, $.subTitle , $.detail)
-  resolve()
+  return new Promise((resolve) => {
+    $.msg($.name, $.subTitle , $.detail)
+    resolve()
+  })
 }
  
 // prettier-ignore
