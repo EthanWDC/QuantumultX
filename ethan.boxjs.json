@@ -1,0 +1,18 @@
+{
+  "id": "ethan.app.sub",
+  "name": "Ethan应用订阅",
+  "author": "@EthanWDC",
+  "icon": "https://avatars.githubusercontent.com/u/64431009?s=460&u=6abf4ce1a61eacda3953c424acf7a01f2fa5ba67&v=4",
+  "repo": "https://github.com/EthanWDC/QuantumultX",
+  "apps": [
+    {
+      "id": "ethan.10086_SH",
+      "name": "上海移动签到",
+      "keys": ["ethan_10086_SH_autologin"],
+      "author": "@EthanWDC",
+      "repo": "https://github.com/EthanWDC/QuantumultX/blob/master/10086/10086_SH.js",
+      "script": "https://raw.githubusercontent.com/EthanWDC/QuantumultX/master/10086/10086_SH.js",
+      "icons": ["https://raw.githubusercontent.com/Orz-3/mini/master/10086.png", "https://raw.githubusercontent.com/Orz-3/task/master/10086.png"]
+    }
+  ]
+}
