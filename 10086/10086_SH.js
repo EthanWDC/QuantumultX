@@ -15,10 +15,10 @@ $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebK
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
-  if($.uid){await getartifact()}
-  if($.artifact){await channelAuth()}
-  if($.actck){await loginactivity()}
-  if($.loginactck){await signactivity()}
+  if($.uid){await sign_getartifact()}
+  if($.sign_artifact){await sign_channelAuth()}
+  if($.sign_actck){await sign_loginactivity()}
+  if($.sign_loginactck){await sign_activity()}
   await showmsg_sign()
 })()
   .catch((e) => $.logErr(e))
@@ -41,15 +41,15 @@ function loginapp() {
   })
 }
 
-function getartifact() {
+function sign_getartifact() {
   return new Promise((resolve) => {
     const url = {url: `https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=100210${new Date().getTime()}&UID=${$.uid}&timestamp=${new Date().getTime()}`,
         headers: {"User-Agent": `${$.user_agent}`}
     }
     $.get(url, (err, resp, data) => {
       try {
-        $.artifact = data.match(/\"art.+?\"/).toString().replace(/\"/g,"")
-        console.log('Artifact:' + $.artifact)
+        $.sign_artifact = data.match(/\"art.+?\"/).toString().replace(/\"/g,"")
+        console.log('Artifact:' + $.sign_artifact)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -59,16 +59,16 @@ function getartifact() {
   })
 }
 
-function channelAuth() {
+function sign_channelAuth() {
   return new Promise((resolve) => {
     const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/channelAuthority/check`,
-        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.sign_actck}`},
         body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&busicode=200722&forwardapp=JTSJYYT&v=123&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
     }
     $.post(url, (err, resp, data) => {
       try {
-        $.actck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
-        let h5_session_id = $.actck.match(/h5\.session\.id=.+?;/)
+        $.sign_actck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        let h5_session_id = $.sign_actck.match(/h5\.session\.id=.+?;/)
         if(h5_session_id){
           console.log('Channel authority check success:' + h5_session_id)
         }else{
@@ -83,15 +83,15 @@ function channelAuth() {
   })
 }
 
-function loginactivity() {
+function sign_loginactivity() {
   return new Promise((resolve) => {
         const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/login/loginByUidForJT`,
-        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
-        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&uid=${$.artifact}&isFirst=true&forwardapp=JTSJYYT&v=123&busicode=200722&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.sign_actck}`},
+        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&uid=${$.sign_artifact}&isFirst=true&forwardapp=JTSJYYT&v=123&busicode=200722&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
     }
     $.post(url, (err, resp, data) => {
       try {
-        $.loginactck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        $.sign_loginactck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
         console.log('Login-Activity:' + data)
       } catch (e) {
         $.logErr(e, resp)
@@ -102,15 +102,15 @@ function loginactivity() {
   })
 }
 
-function signactivity() {
+function sign_activity() {
   return new Promise((resolve) => {
         const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/QdActivity/sign_commit`,
-        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.sign_actck}`},
         body: `ajaxSubmitType=post&pageCode=2020072100021131&urlId=&retailForward=&activityId=2019010101&hdId=2020072100004392&forwardapp=JTSJYYT&v=123&busicode=200722&touchid=210_APP&goodsId=2020072100021131&goodsName=%E7%AD%BE%E5%88%B0&packageId=2020072100021131&packageName=%E7%AD%BE%E5%88%B0`
     }
     $.post(url, (err, resp, data) => {
       try {
-        $.signresult = JSON.parse(data)
+        $.sign_result = JSON.parse(data)
         console.log('Sign-Activity:' + data)
       } catch (e) {
         $.logErr(e, resp)
@@ -121,31 +121,32 @@ function signactivity() {
   })
 }
 
+
 function showmsg_sign() {
   return new Promise((resolve) => {
     $.subTitle = ""
     $.detail = ""
     let plusflag = ""
-    if ($.signresult && $.signresult.X_RESULTCODE == '0') {
-      $.subTitle = `签到结果: ` + $.signresult.X_RESULTINFO
-      $.detail = `签到累计: ${$.signresult.count}天`
-      if($.signresult.jf){
-        $.detail = $.detail + `\n获得: ${$.signresult.jf}个5G金币`
+    if ($.sign_result && $.sign_result.X_RESULTCODE == '0') {
+      $.subTitle = `签到结果: ` + $.sign_result.X_RESULTINFO
+      $.detail = `签到累计: ${$.sign_result.count}天`
+      if($.sign_result.jf){
+        $.detail = $.detail + `\n获得: ${$.sign_result.jf}个5G金币`
         plusflag = "+"
       }
-      if($.signresult.gift){
+      if($.sign_result.gift){
         if(plusflag){
-          $.detail = $.detail + `+${$.signresult.gift}MB全国流量`
+          $.detail = $.detail + `+${$.sign_result.gift}MB全国流量`
         }else{
-          $.detail = $.detail + `\n获得: ${$.signresult.gift}MB全国流量`
+          $.detail = $.detail + `\n获得: ${$.sign_result.gift}MB全国流量`
         }
       }
-      if($.signresult.currentQy && $.signresult.currentQy.content1){
-        $.detail = $.detail + `\n获得: ${$.signresult.currentQy.content1}`
+      if($.sign_result.currentQy && $.sign_result.currentQy.content1){
+        $.detail = $.detail + `\n获得: ${$.sign_result.currentQy.content1}`
       }
-    } else if ($.signresult && $.signresult.X_RESULTCODE == '-1') {
+    } else if ($.sign_result && $.sign_result.X_RESULTCODE == '-1') {
       $.subTitle = `签到结果: 失败`
-      $.detail = `说明: ${$.signresult.X_RESULTINFO}`
+      $.detail = `说明: ${$.sign_result.X_RESULTINFO}`
     } else {
       $.subTitle = `签到结果: 失败`
       $.detail = `说明: 详见日志`
