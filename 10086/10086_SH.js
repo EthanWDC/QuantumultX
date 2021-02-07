@@ -20,6 +20,8 @@ let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||eth
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   const cellnum = encrypt('13818900672', 'bAIgvwAuA4tbDr9d')
   console.log(cellnum)
+  console.log($.CryptoJS.MD5(cellnum))
+  console.log($.CryptoJS.MD5('13818900672'))
   await loginapp()
   console.log('=====开始签到=====')
   if($.uid){await sign_getartifact()}
