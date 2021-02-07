@@ -54,7 +54,6 @@ let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||eth
 function loginapp() {
   return new Promise((resolve) => {
     const url = JSON.parse($.getdata($.KEY_autologin))
-    url.headers.xs = ''////////
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
