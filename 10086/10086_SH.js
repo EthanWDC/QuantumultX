@@ -42,7 +42,7 @@ function loginapp() {
 function getartaddress() {
   return new Promise((resolve) => {
     const url = {
-      url: `https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&${.uid}`,
+      url: `https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&${$.uid},
       headers: {
         "User-Agent": `Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0`, 
         "Referer":`https://activity2.sh.chinamobile.com/`
