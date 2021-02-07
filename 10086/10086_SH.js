@@ -10,7 +10,7 @@
 const $ = new Env('上海移动签到')
 $.KEY_autologin = 'ethan_10086_SH_autologin'
 
-$.telNo = ''
+$.telNo = '' //兑换礼包post参数，暂时不知如何加密
 $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
 
 const ethan_exchangegift = false
@@ -18,10 +18,6 @@ let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||eth
 
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
-  const cellnum = encrypt('13818900672', 'bAIgvwAuA4tbDr9d')
-  console.log(cellnum)
-  console.log($.CryptoJS.MD5(cellnum))
-  console.log($.CryptoJS.MD5('13818900672'))
   await loginapp()
   console.log('=====开始签到=====')
   if($.uid){await sign_getartifact()}
