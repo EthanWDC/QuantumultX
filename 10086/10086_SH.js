@@ -17,7 +17,6 @@ const ethan_exchangegift = false
 let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||ethan_exchangegift)
 
 !(async () => {
-  $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
   console.log('=====开始签到=====')
   if($.uid){await sign_getartifact()}
@@ -286,22 +285,6 @@ function showmsg(){
     $.msg($.name, $.subTitle , $.detail)
     resolve()
   })
-}
-
-function encrypt(str, key) {
-  return $.CryptoJS.AES.encrypt($.CryptoJS.enc.Utf8.parse(str), $.CryptoJS.enc.Utf8.parse(key), {
-    iv: $.CryptoJS.enc.Utf8.parse('9791027341711819'),
-    mode: $.CryptoJS.mode.CBC,
-    padding: $.CryptoJS.pad.Pkcs7
-  }).toString()
-}
-
-function decrypt(str, key) {
-  return $.CryptoJS.AES.decrypt(str, $.CryptoJS.enc.Utf8.parse(key), {
-    iv: $.CryptoJS.enc.Utf8.parse('9791027341711819'),
-    mode: $.CryptoJS.mode.CBC,
-    padding: $.CryptoJS.pad.Pkcs7
-  }).toString($.CryptoJS.enc.Utf8)
 }
 
 // prettier-ignore
