@@ -53,7 +53,8 @@ let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||eth
 
 function loginapp() {
   return new Promise((resolve) => {
-    const url = JSON.parse($.getdata($.KEY_autologin))
+    //const url = JSON.parse($.getdata($.KEY_autologin))
+    const url = {"url":"https://clientaccess.10086.cn/biz-orange/LN/uamrandcodelogin/autoLogin","body":"","headers":{"Accept":"*/*","Cookie":"","Accept-Encoding":"deflate","Content-Type":"application/Json","Connection":"close","Host":"clientaccess.10086.cn","Content-Length":"896","User-Agent":"ChinaMobile/6.6.0 (iPhone; iOS 14.4; Scale/3.00)","Accept-Language":"zh-Hans-CN;q=1, en-CN;q=0.9, zh-Hant-CN;q=0.8","xs":"8d16951fd66224cac7aa5206817d21c","x-qen":"2"}}
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
