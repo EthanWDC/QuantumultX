@@ -10,7 +10,7 @@
       "name": "上海移动签到",
       "keys": ["ethan_10086_SH_autologin"],
       "settings": [
-        { "id": "ethan_10086_SH_changegift", "name": "兑换签到礼包", "val": false, "type": "boolean", "desc": "自动兑换签到金币和流量礼包开关（测试功能）" }
+        { "id": "ethan_10086_SH_exchangegift", "name": "兑换签到礼包", "val": false, "type": "boolean", "desc": "自动兑换签到金币和流量礼包开关（测试功能）" }
       ],
       "author": "@EthanWDC",
       "repo": "https://github.com/EthanWDC/QuantumultX/blob/master/10086/10086_SH.js",
