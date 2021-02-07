@@ -54,6 +54,12 @@ let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||eth
 function loginapp() {
   return new Promise((resolve) => {
     const url = JSON.parse($.getdata($.KEY_autologin))
+    //================
+    const bodystr = decrypt(url.body, 'bAIgvwAuA4tbDr9d').toString();
+    console.log(bodystr)
+    const headerxs = $.CryptoJS.MD5(url.url + '_' + bodystr + '_Leadeon/SecurityOrganization').toString()
+    console.log(headerxs)
+    //===================
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
