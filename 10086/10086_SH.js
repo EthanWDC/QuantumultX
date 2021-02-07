@@ -32,8 +32,8 @@ $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebK
       if($.exchangegift_queryresult.giftList[i].equityURL || $.exchangegift_queryresult.giftList[i].state != '1'){continue}
       else{
          console.log('兑换礼包: '+$.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+'-'+$.exchangegift_queryresult.giftList[i].promotion_order_id+'-'+$.exchangegift_queryresult.giftList[i].res_type)
-         $.orderId = encodeURI($.exchangegift_queryresult.giftList[i].promotion_order_id)
-         $.res_type = encodeURI($.exchangegift_queryresult.giftList[i].res_type)
+         $.orderId = $.exchangegift_queryresult.giftList[i].promotion_order_id
+         //$.res_type = encodeURI($.exchangegift_queryresult.giftList[i].res_type)
          await exchangegift_activity()
          if($.exchangegift_result){
               $.detail = $.detail + "\n兑换礼包: " + $.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+". 结果: "+$.exchangegift_result.X_RESULTINFO
