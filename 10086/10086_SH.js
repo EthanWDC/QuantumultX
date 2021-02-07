@@ -7,17 +7,19 @@
   }(), function () { function r() { for (var t = this._S, r = this._i, e = this._j, i = 0, n = 0; n < 4; n++) { r = (r + 1) % 256, e = (e + t[r]) % 256; var o = t[r]; t[r] = t[e], t[e] = o, i |= t[(t[r] + t[e]) % 256] << 24 - 8 * n } return this._i = r, this._j = e, i } var e = t, i = e.lib, n = i.StreamCipher, o = e.algo, s = o.RC4 = n.extend({ _doReset: function () { for (var t = this._key, r = t.words, e = t.sigBytes, i = this._S = [], n = 0; n < 256; n++)i[n] = n; for (var n = 0, o = 0; n < 256; n++) { var s = n % e, a = r[s >>> 2] >>> 24 - s % 4 * 8 & 255; o = (o + i[n] + a) % 256; var c = i[n]; i[n] = i[o], i[o] = c } this._i = this._j = 0 }, _doProcessBlock: function (t, e) { t[e] ^= r.call(this) }, keySize: 8, ivSize: 0 }); e.RC4 = n._createHelper(s); var a = o.RC4Drop = s.extend({ cfg: s.cfg.extend({ drop: 192 }), _doReset: function () { s._doReset.call(this); for (var t = this.cfg.drop; t > 0; t--)r.call(this) } }); e.RC4Drop = n._createHelper(a) }(), t.mode.CTRGladman = function () { function r(t) { if (255 === (t >> 24 & 255)) { var r = t >> 16 & 255, e = t >> 8 & 255, i = 255 & t; 255 === r ? (r = 0, 255 === e ? (e = 0, 255 === i ? i = 0 : ++i) : ++e) : ++r, t = 0, t += r << 16, t += e << 8, t += i } else t += 1 << 24; return t } function e(t) { return 0 === (t[0] = r(t[0])) && (t[1] = r(t[1])), t } var i = t.lib.BlockCipherMode.extend(), n = i.Encryptor = i.extend({ processBlock: function (t, r) { var i = this._cipher, n = i.blockSize, o = this._iv, s = this._counter; o && (s = this._counter = o.slice(0), this._iv = void 0), e(s); var a = s.slice(0); i.encryptBlock(a, 0); for (var c = 0; c < n; c++)t[r + c] ^= a[c] } }); return i.Decryptor = n, i }(), function () { function r() { for (var t = this._X, r = this._C, e = 0; e < 8; e++)a[e] = r[e]; r[0] = r[0] + 1295307597 + this._b | 0, r[1] = r[1] + 3545052371 + (r[0] >>> 0 < a[0] >>> 0 ? 1 : 0) | 0, r[2] = r[2] + 886263092 + (r[1] >>> 0 < a[1] >>> 0 ? 1 : 0) | 0, r[3] = r[3] + 1295307597 + (r[2] >>> 0 < a[2] >>> 0 ? 1 : 0) | 0, r[4] = r[4] + 3545052371 + (r[3] >>> 0 < a[3] >>> 0 ? 1 : 0) | 0, r[5] = r[5] + 886263092 + (r[4] >>> 0 < a[4] >>> 0 ? 1 : 0) | 0, r[6] = r[6] + 1295307597 + (r[5] >>> 0 < a[5] >>> 0 ? 1 : 0) | 0, r[7] = r[7] + 3545052371 + (r[6] >>> 0 < a[6] >>> 0 ? 1 : 0) | 0, this._b = r[7] >>> 0 < a[7] >>> 0 ? 1 : 0; for (var e = 0; e < 8; e++) { var i = t[e] + r[e], n = 65535 & i, o = i >>> 16, s = ((n * n >>> 17) + n * o >>> 15) + o * o, h = ((4294901760 & i) * i | 0) + ((65535 & i) * i | 0); c[e] = s ^ h } t[0] = c[0] + (c[7] << 16 | c[7] >>> 16) + (c[6] << 16 | c[6] >>> 16) | 0, t[1] = c[1] + (c[0] << 8 | c[0] >>> 24) + c[7] | 0, t[2] = c[2] + (c[1] << 16 | c[1] >>> 16) + (c[0] << 16 | c[0] >>> 16) | 0, t[3] = c[3] + (c[2] << 8 | c[2] >>> 24) + c[1] | 0, t[4] = c[4] + (c[3] << 16 | c[3] >>> 16) + (c[2] << 16 | c[2] >>> 16) | 0, t[5] = c[5] + (c[4] << 8 | c[4] >>> 24) + c[3] | 0, t[6] = c[6] + (c[5] << 16 | c[5] >>> 16) + (c[4] << 16 | c[4] >>> 16) | 0, t[7] = c[7] + (c[6] << 8 | c[6] >>> 24) + c[5] | 0 } var e = t, i = e.lib, n = i.StreamCipher, o = e.algo, s = [], a = [], c = [], h = o.Rabbit = n.extend({ _doReset: function () { for (var t = this._key.words, e = this.cfg.iv, i = 0; i < 4; i++)t[i] = 16711935 & (t[i] << 8 | t[i] >>> 24) | 4278255360 & (t[i] << 24 | t[i] >>> 8); var n = this._X = [t[0], t[3] << 16 | t[2] >>> 16, t[1], t[0] << 16 | t[3] >>> 16, t[2], t[1] << 16 | t[0] >>> 16, t[3], t[2] << 16 | t[1] >>> 16], o = this._C = [t[2] << 16 | t[2] >>> 16, 4294901760 & t[0] | 65535 & t[1], t[3] << 16 | t[3] >>> 16, 4294901760 & t[1] | 65535 & t[2], t[0] << 16 | t[0] >>> 16, 4294901760 & t[2] | 65535 & t[3], t[1] << 16 | t[1] >>> 16, 4294901760 & t[3] | 65535 & t[0]]; this._b = 0; for (var i = 0; i < 4; i++)r.call(this); for (var i = 0; i < 8; i++)o[i] ^= n[i + 4 & 7]; if (e) { var s = e.words, a = s[0], c = s[1], h = 16711935 & (a << 8 | a >>> 24) | 4278255360 & (a << 24 | a >>> 8), l = 16711935 & (c << 8 | c >>> 24) | 4278255360 & (c << 24 | c >>> 8), f = h >>> 16 | 4294901760 & l, u = l << 16 | 65535 & h; o[0] ^= h, o[1] ^= f, o[2] ^= l, o[3] ^= u, o[4] ^= h, o[5] ^= f, o[6] ^= l, o[7] ^= u; for (var i = 0; i < 4; i++)r.call(this) } }, _doProcessBlock: function (t, e) { var i = this._X; r.call(this), s[0] = i[0] ^ i[5] >>> 16 ^ i[3] << 16, s[1] = i[2] ^ i[7] >>> 16 ^ i[5] << 16, s[2] = i[4] ^ i[1] >>> 16 ^ i[7] << 16, s[3] = i[6] ^ i[3] >>> 16 ^ i[1] << 16; for (var n = 0; n < 4; n++)s[n] = 16711935 & (s[n] << 8 | s[n] >>> 24) | 4278255360 & (s[n] << 24 | s[n] >>> 8), t[e + n] ^= s[n] }, blockSize: 4, ivSize: 2 }); e.Rabbit = n._createHelper(h) }(), t.mode.CTR = function () { var r = t.lib.BlockCipherMode.extend(), e = r.Encryptor = r.extend({ processBlock: function (t, r) { var e = this._cipher, i = e.blockSize, n = this._iv, o = this._counter; n && (o = this._counter = n.slice(0), this._iv = void 0); var s = o.slice(0); e.encryptBlock(s, 0), o[i - 1] = o[i - 1] + 1 | 0; for (var a = 0; a < i; a++)t[r + a] ^= s[a] } }); return r.Decryptor = e, r }(), function () { function r() { for (var t = this._X, r = this._C, e = 0; e < 8; e++)a[e] = r[e]; r[0] = r[0] + 1295307597 + this._b | 0, r[1] = r[1] + 3545052371 + (r[0] >>> 0 < a[0] >>> 0 ? 1 : 0) | 0, r[2] = r[2] + 886263092 + (r[1] >>> 0 < a[1] >>> 0 ? 1 : 0) | 0, r[3] = r[3] + 1295307597 + (r[2] >>> 0 < a[2] >>> 0 ? 1 : 0) | 0, r[4] = r[4] + 3545052371 + (r[3] >>> 0 < a[3] >>> 0 ? 1 : 0) | 0, r[5] = r[5] + 886263092 + (r[4] >>> 0 < a[4] >>> 0 ? 1 : 0) | 0, r[6] = r[6] + 1295307597 + (r[5] >>> 0 < a[5] >>> 0 ? 1 : 0) | 0, r[7] = r[7] + 3545052371 + (r[6] >>> 0 < a[6] >>> 0 ? 1 : 0) | 0, this._b = r[7] >>> 0 < a[7] >>> 0 ? 1 : 0; for (var e = 0; e < 8; e++) { var i = t[e] + r[e], n = 65535 & i, o = i >>> 16, s = ((n * n >>> 17) + n * o >>> 15) + o * o, h = ((4294901760 & i) * i | 0) + ((65535 & i) * i | 0); c[e] = s ^ h } t[0] = c[0] + (c[7] << 16 | c[7] >>> 16) + (c[6] << 16 | c[6] >>> 16) | 0, t[1] = c[1] + (c[0] << 8 | c[0] >>> 24) + c[7] | 0, t[2] = c[2] + (c[1] << 16 | c[1] >>> 16) + (c[0] << 16 | c[0] >>> 16) | 0, t[3] = c[3] + (c[2] << 8 | c[2] >>> 24) + c[1] | 0, t[4] = c[4] + (c[3] << 16 | c[3] >>> 16) + (c[2] << 16 | c[2] >>> 16) | 0, t[5] = c[5] + (c[4] << 8 | c[4] >>> 24) + c[3] | 0, t[6] = c[6] + (c[5] << 16 | c[5] >>> 16) + (c[4] << 16 | c[4] >>> 16) | 0, t[7] = c[7] + (c[6] << 8 | c[6] >>> 24) + c[5] | 0 } var e = t, i = e.lib, n = i.StreamCipher, o = e.algo, s = [], a = [], c = [], h = o.RabbitLegacy = n.extend({ _doReset: function () { var t = this._key.words, e = this.cfg.iv, i = this._X = [t[0], t[3] << 16 | t[2] >>> 16, t[1], t[0] << 16 | t[3] >>> 16, t[2], t[1] << 16 | t[0] >>> 16, t[3], t[2] << 16 | t[1] >>> 16], n = this._C = [t[2] << 16 | t[2] >>> 16, 4294901760 & t[0] | 65535 & t[1], t[3] << 16 | t[3] >>> 16, 4294901760 & t[1] | 65535 & t[2], t[0] << 16 | t[0] >>> 16, 4294901760 & t[2] | 65535 & t[3], t[1] << 16 | t[1] >>> 16, 4294901760 & t[3] | 65535 & t[0]]; this._b = 0; for (var o = 0; o < 4; o++)r.call(this); for (var o = 0; o < 8; o++)n[o] ^= i[o + 4 & 7]; if (e) { var s = e.words, a = s[0], c = s[1], h = 16711935 & (a << 8 | a >>> 24) | 4278255360 & (a << 24 | a >>> 8), l = 16711935 & (c << 8 | c >>> 24) | 4278255360 & (c << 24 | c >>> 8), f = h >>> 16 | 4294901760 & l, u = l << 16 | 65535 & h; n[0] ^= h, n[1] ^= f, n[2] ^= l, n[3] ^= u, n[4] ^= h, n[5] ^= f, n[6] ^= l, n[7] ^= u; for (var o = 0; o < 4; o++)r.call(this) } }, _doProcessBlock: function (t, e) { var i = this._X; r.call(this), s[0] = i[0] ^ i[5] >>> 16 ^ i[3] << 16, s[1] = i[2] ^ i[7] >>> 16 ^ i[5] << 16, s[2] = i[4] ^ i[1] >>> 16 ^ i[7] << 16, s[3] = i[6] ^ i[3] >>> 16 ^ i[1] << 16; for (var n = 0; n < 4; n++)s[n] = 16711935 & (s[n] << 8 | s[n] >>> 24) | 4278255360 & (s[n] << 24 | s[n] >>> 8), t[e + n] ^= s[n] }, blockSize: 4, ivSize: 2 }); e.RabbitLegacy = n._createHelper(h) }(), t.pad.ZeroPadding = { pad: function (t, r) { var e = 4 * r; t.clamp(), t.sigBytes += e - (t.sigBytes % e || e) }, unpad: function (t) { for (var r = t.words, e = t.sigBytes - 1; !(r[e >>> 2] >>> 24 - e % 4 * 8 & 255);)e--; t.sigBytes = e + 1 } }, t
 });
 
-const $ = new Env('中国移动')
-$.KEY_autologin = 'chavy_autologin_cmcc'
-$.KEY_getfee = 'chavy_getfee_cmcc'
+const $ = new Env('上海移动签到')
+$.KEY_autologin = 'ethan_10086_SH_autologin'
+
+$.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
 
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
-  await getartaddress()
-  //await queryfee()
-  //await querymeal()
-  //await showmsg()
+  if($.uid){await getartifact()}
+  if($.artifact){await channelAuth()}
+  if($.actck){await loginactivity()}
+  if($.loginactck){await signactivity()}
+  await showmsg_sign()
 })()
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
@@ -28,32 +30,8 @@ function loginapp() {
     $.post(url, (err, resp, data) => {
       try {
         $.setck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
-        $.uid = $.setck.match(/UID=.+?;/)
-        console.log('Login-Cookie:' + $.setck)
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve()
-      }
-    })
-  })
-}
-
-function getartaddress() {
-  return new Promise((resolve) => {
-    const url = {
-      url: `https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=1002101612586619853&${$.uid},
-      headers: {
-        "User-Agent": `Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0`, 
-        "Referer":`https://activity2.sh.chinamobile.com/`
-      }
-    }
-    console.log(url.url)
-    $.get(url, (err, resp, data) => {
-      try {
-        console.log('Data:' + data)
-        console.log('Artifact-Address:' + resp.statusCode)
-        console.log('Artifact-Address2:' + resp.headers['Set-Cookie'])
+        $.uid = $.setck.match(/UID=.+?;/).toString().replace(/;/,"").replace(/UID=/,"")
+        console.log('UID:' + $.uid)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -65,10 +43,13 @@ function getartaddress() {
 
 function getartifact() {
   return new Promise((resolve) => {
-    const url = $.artaddress
+    const url = {url: `https://login.10086.cn/AppSSO.action?targetChannelID=20210&targetUrl=https%3A%2F%2Factivity2.sh.chinamobile.com&TransactionID=100210${new Date().getTime()}&UID=${$.uid}&timestamp=${new Date().getTime()}`,
+        headers: {"User-Agent": `${$.user_agent}`}
+    }
     $.get(url, (err, resp, data) => {
       try {
-        console.log('Artifact:' + data)
+        $.artifact = data.match(/\"art.+?\"/).toString().replace(/\"/g,"")
+        console.log('Artifact:' + $.artifact)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -78,18 +59,21 @@ function getartifact() {
   })
 }
 
-function queryfee() {
+function channelAuth() {
   return new Promise((resolve) => {
-    const url = JSON.parse($.getdata($.KEY_getfee))
-    const body = JSON.parse(decrypt(url.body, 'bAIgvwAuA4tbDr9d'))
-    const cellNum = body.reqBody.cellNum
-    const bodystr = `{"t":"${$.CryptoJS.MD5($.setck).toString()}","cv":"9.9.9","reqBody":{"cellNum":"${cellNum}"}}`
-    url.body = encrypt(bodystr, 'bAIgvwAuA4tbDr9d')
-    url.headers['Cookie'] = $.setck
-    url.headers['xs'] = $.CryptoJS.MD5(url.url + '_' + bodystr + '_Leadeon/SecurityOrganization').toString()
+    const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/channelAuthority/check`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
+        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&busicode=200722&forwardapp=JTSJYYT&v=123&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
+    }
     $.post(url, (err, resp, data) => {
       try {
-        $.fee = JSON.parse(decrypt(data, 'GS7VelkJl5IT1uwQ'))
+        $.actck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        let h5_session_id = $.actck.match(/h5\.session\.id=.+?;/)
+        if(h5_session_id){
+          console.log('Channel authority check success:' + h5_session_id)
+        }else{
+          console.log('Channel authority check failed.')
+        }
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -98,19 +82,17 @@ function queryfee() {
     })
   })
 }
-function querymeal() {
+
+function loginactivity() {
   return new Promise((resolve) => {
-    const url = JSON.parse($.getdata($.KEY_getfee))
-    url.url = 'https://clientaccess.10086.cn/biz-orange/BN/newComboMealResouceUnite/getNewComboMealResource'
-    const body = JSON.parse(decrypt(url.body, 'bAIgvwAuA4tbDr9d'))
-    const cellNum = body.reqBody.cellNum
-    const bodystr = `{"t":"${$.CryptoJS.MD5($.setck).toString()}","cv":"9.9.9","reqBody":{"cellNum":"${cellNum}","tag":"3"}}`
-    url.body = encrypt(bodystr, 'bAIgvwAuA4tbDr9d')
-    url.headers['Cookie'] = $.setck
-    url.headers['xs'] = $.CryptoJS.MD5(url.url + '_' + bodystr + '_Leadeon/SecurityOrganization').toString()
+        const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/login/loginByUidForJT`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
+        body: `ajaxSubmitType=post&pageCode=&urlId=&retailForward=&uid=${$.artifact}&isFirst=true&forwardapp=JTSJYYT&v=123&busicode=200722&touchid=&goodsId=&goodsName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8&packageName=%E4%B8%8A%E6%B5%B7%E7%A7%BB%E5%8A%A8`
+    }
     $.post(url, (err, resp, data) => {
       try {
-        $.meal = JSON.parse(decrypt(data, 'GS7VelkJl5IT1uwQ'))
+        $.loginactck = $.isNode() ? resp.headers['set-cookie'] : resp.headers['Set-Cookie']
+        console.log('Login-Activity:' + data)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -120,44 +102,55 @@ function querymeal() {
   })
 }
 
-function encrypt(str, key) {
-  return $.CryptoJS.AES.encrypt($.CryptoJS.enc.Utf8.parse(str), $.CryptoJS.enc.Utf8.parse(key), {
-    iv: $.CryptoJS.enc.Utf8.parse('9791027341711819'),
-    mode: $.CryptoJS.mode.CBC,
-    padding: $.CryptoJS.pad.Pkcs7
-  }).toString()
-}
-
-function decrypt(str, key) {
-  return $.CryptoJS.AES.decrypt(str, $.CryptoJS.enc.Utf8.parse(key), {
-    iv: $.CryptoJS.enc.Utf8.parse('9791027341711819'),
-    mode: $.CryptoJS.mode.CBC,
-    padding: $.CryptoJS.pad.Pkcs7
-  }).toString($.CryptoJS.enc.Utf8)
-}
-
-function showmsg() {
+function signactivity() {
   return new Promise((resolve) => {
-    $.subt = `话费: ${$.fee.rspBody.curFeeTotal}, 剩余: ${$.fee.rspBody.curFee}, 已用: ${$.fee.rspBody.realFee}`
-    const res = $.meal.rspBody.qryInfoRsp[0].resourcesTotal
+        const url = {url: `https://activity2.sh.chinamobile.com/h5/activityserver/QdActivity/sign_commit`,
+        headers: {"User-Agent": `${$.user_agent}`, "Cookie": `${$.actck}`},
+        body: `ajaxSubmitType=post&pageCode=2020072100021131&urlId=&retailForward=&activityId=2019010101&hdId=2020072100004392&forwardapp=JTSJYYT&v=123&busicode=200722&touchid=210_APP&goodsId=2020072100021131&goodsName=%E7%AD%BE%E5%88%B0&packageId=2020072100021131&packageName=%E7%AD%BE%E5%88%B0`
+    }
+    $.post(url, (err, resp, data) => {
+      try {
+        $.signresult = JSON.parse(data)
+        console.log('Sign-Activity:' + data)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
 
-    const flowRes = res.find((r) => r.resourcesCode === '04')
-    const voiceRes = res.find((r) => r.resourcesCode === '01')
-    console.log(JSON.stringify(flowRes))
-    $.desc = []
-    if (flowRes) {
-      const remUnit = flowRes.remUnit === '05' ? 'GB' : 'MB'
-      const usedUnit = flowRes.usedUnit === '05' ? 'GB' : 'MB'
-      const unit = flowRes.allUnit === '05' ? 'GB' : 'MB'
-      $.desc.push(`流量: ${flowRes.allUsedRes}${usedUnit}/${flowRes.allTotalRes}${unit}, 剩余: ${flowRes.allRemainRes}${remUnit}`)
+function showmsg_sign() {
+  return new Promise((resolve) => {
+    $.subTitle = ""
+    $.detail = ""
+    let plusflag = ""
+    if ($.signresult && $.signresult.X_RESULTCODE == '0') {
+      $.subTitle = `签到结果: ` + $.signresult.X_RESULTINFO
+      $.detail = `签到累计: ${$.signresult.count}天`
+      if($.signresult.jf){
+        $.detail = $.detail + `\n获得: ${$.signresult.jf}个5G金币`
+        plusflag = "+"
+      }
+      if($.signresult.gift){
+        if(plusflag){
+          $.detail = $.detail + `+${$.signresult.gift}MB全国流量`
+        }else{
+          $.detail = $.detail + `\n获得: ${$.signresult.gift}MB全国流量`
+        }
+      }
+      if($.signresult.currentQy && $.signresult.currentQy.content1){
+        $.detail = $.detail + `\n获得: ${$.signresult.currentQy.content1}`
+      }
+    } else if ($.signresult && $.signresult.X_RESULTCODE == '-1') {
+      $.subTitle = `签到结果: 失败`
+      $.detail = `说明: ${$.signresult.X_RESULTINFO}`
+    } else {
+      $.subTitle = `签到结果: 失败`
+      $.detail = `说明: 详见日志`
     }
-    if (voiceRes) {
-      const remUnit = flowRes.remUnit === '01' ? '分钟' : ''
-      const usedUnit = flowRes.usedUnit === '01' ? '分钟' : ''
-      const allUnit = '分钟'
-      $.desc.push(`语音: ${voiceRes.allUsedRes}/${voiceRes.allTotalRes}${allUnit}, 剩余: ${voiceRes.allRemainRes}${allUnit}`)
-    }
-    $.msg($.name, $.subt, $.desc.join('\n'))
+    $.msg($.name, $.subTitle , $.detail)
     resolve()
   })
 }
