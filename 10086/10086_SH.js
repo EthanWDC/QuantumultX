@@ -17,7 +17,7 @@ const ethan_exchangegift = false
 let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||ethan_exchangegift)
 
 !(async () => {
-  //$.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
+  $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
   console.log('=====开始签到=====')
   if($.uid){await sign_getartifact()}
