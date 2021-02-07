@@ -13,6 +13,9 @@ $.KEY_autologin = 'ethan_10086_SH_autologin'
 $.telNo = ''
 $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
 
+const ethan_exchangegift = false
+let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||ethan_exchangegift)
+
 !(async () => {
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS
   await loginapp()
@@ -22,22 +25,24 @@ $.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebK
   if($.sign_actck){await sign_loginactivity()}
   if($.sign_loginactck){await sign_activity()}
   await preparemsg_sign()
-  console.log('=====开始兑换礼包=====')
-  if($.uid){await exchangegift_getartifact()}
-  if($.exchangegift_artifact){await exchangegift_channelAuth()}
-  if($.exchangegift_actck){await exchangegift_loginactivity()}
-  if($.exchangegift_loginactck){await exchangegift_queryactivity()}
-  if($.exchangegift_loginactck && $.exchangegift_queryresult && $.exchangegift_queryresult.X_RESULTCODE == '0' && $.exchangegift_queryresult.giftList){
-    for(let i=0; i<$.exchangegift_queryresult.giftList.length; i++){
-      if($.exchangegift_queryresult.giftList[i].equityURL || $.exchangegift_queryresult.giftList[i].state != '1'){continue}
-      else{
-         console.log('兑换礼包: '+$.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+'-'+$.exchangegift_queryresult.giftList[i].promotion_order_id+'-'+$.exchangegift_queryresult.giftList[i].res_type)
-         $.orderId = $.exchangegift_queryresult.giftList[i].promotion_order_id
-         //$.res_type = encodeURI($.exchangegift_queryresult.giftList[i].res_type)
-         await exchangegift_activity()
-         if($.exchangegift_result){
-              $.detail = $.detail + "\n兑换礼包: " + $.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+". 结果: "+$.exchangegift_result.X_RESULTINFO
-         }
+  if(exchangegift_flag){
+    console.log('=====开始兑换礼包=====')
+    if($.uid){await exchangegift_getartifact()}
+    if($.exchangegift_artifact){await exchangegift_channelAuth()}
+    if($.exchangegift_actck){await exchangegift_loginactivity()}
+    if($.exchangegift_loginactck){await exchangegift_queryactivity()}
+    if($.exchangegift_loginactck && $.exchangegift_queryresult && $.exchangegift_queryresult.X_RESULTCODE == '0' && $.exchangegift_queryresult.giftList){
+      for(let i=0; i<$.exchangegift_queryresult.giftList.length; i++){
+        if($.exchangegift_queryresult.giftList[i].equityURL || $.exchangegift_queryresult.giftList[i].state != '1'){continue}
+        else{
+          console.log('兑换礼包: '+$.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+'-'+$.exchangegift_queryresult.giftList[i].promotion_order_id+'-'+$.exchangegift_queryresult.giftList[i].res_type)
+          $.orderId = $.exchangegift_queryresult.giftList[i].promotion_order_id
+          //$.res_type = encodeURI($.exchangegift_queryresult.giftList[i].res_type)
+          await exchangegift_activity()
+          if($.exchangegift_result){
+            $.detail = $.detail + "\n兑换礼包: " + $.exchangegift_queryresult.giftList[i].activity_name+'-'+$.exchangegift_queryresult.giftList[i].send_count+$.exchangegift_queryresult.giftList[i].unit+". 结果: "+$.exchangegift_result.X_RESULTINFO
+          }
+        }
       }
     }
   }
