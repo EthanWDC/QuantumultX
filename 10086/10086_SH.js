@@ -254,7 +254,7 @@ function preparemsg_sign() {
     let plusflag = ""
     if ($.sign_result && $.sign_result.X_RESULTCODE == '0') {
       $.subTitle = `签到结果: ` + $.sign_result.X_RESULTINFO
-      $.detail = `签到累计: ${$.sign_result.count}天`
+      $.detail = `本月签到累计: ${$.sign_result.count}天`
       if($.sign_result.jf){
         $.detail = $.detail + `\n获得: ${$.sign_result.jf}个5G金币`
         plusflag = "+"
