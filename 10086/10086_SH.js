@@ -269,6 +269,9 @@ function preparemsg_sign() {
       if($.sign_result.currentQy && $.sign_result.currentQy.content1){
         $.detail = $.detail + `\n获得: ${$.sign_result.currentQy.content1}`
       }
+    } else if ($.sign_result && $.sign_result.X_RESULTCODE == '-1' && $.sign_result.X_RESULTINFO.toString().match(/已经签到/)) {
+      $.subTitle = `签到结果: 重复签到`
+      $.detail = `说明: ${$.sign_result.X_RESULTINFO}`
     } else if ($.sign_result && $.sign_result.X_RESULTCODE == '-1') {
       $.subTitle = `签到结果: 失败`
       $.detail = `说明: ${$.sign_result.X_RESULTINFO}`
