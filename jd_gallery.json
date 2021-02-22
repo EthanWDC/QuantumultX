@@ -40,8 +40,8 @@
     "55 23 * * * https://jd.333234.xyz/jd_scripts/jd_unsubscribe.js, tag=取关京东店铺商品, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
     "39 7 * * * https://jd.333234.xyz/jd_scripts/jx_sign.js, tag=京喜签到, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
 	"1 7,12,19 * * * https://jd.333234.xyz/jd_scripts/jd_beauty.js, tag=美丽研究院, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
-	"1 0,23 * * * https://jd.333234.xyz/jd_scripts/jx_price.js, tag=京东保价, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
-	"1 1,6 * * * https://jd.333234.xyz/jd_scripts/jd_speed_sign, tag=极速版签到+赚现金, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
+	"1 0,23 * * * https://jd.333234.xyz/jd_scripts/jd_price.js, tag=京东保价, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
+	"1 1,6 * * * https://jd.333234.xyz/jd_scripts/jd_speed_sign.js, tag=极速版签到+赚现金, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true",
     "*/20 * * * * https://jd.333234.xyz/jd_scripts/jd_family.js, tag=京东家庭号, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_family.png, enabled=true",
     "11 9 * * * https://raw.githubusercontent.com/yangtingxiao/QuantumultX/master/scripts/jd/jd_rankingList.js, tag=京东排行榜, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_rankingList.png, enabled=true",
     "11 1 * * * https://raw.githubusercontent.com/yangtingxiao/QuantumultX/master/scripts/jd/jd_lotteryMachine.js, tag=京东抽奖机, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jd_lotteryMachine.png, enabled=true"
