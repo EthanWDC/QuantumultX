@@ -11,7 +11,8 @@ const $ = new Env('上海移动签到')
 $.KEY_autologin = 'ethan_10086_SH_autologin'
 
 $.telNo = '' //兑换礼包post参数，暂时不知如何加密
-$.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
+//$.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/6.6.0'
+$.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148/wkwebview leadeon/7.2.0/CMCCIT'
 
 const ethan_exchangegift = false
 let exchangegift_flag = JSON.parse($.getdata("ethan_10086_SH_exchangegift")||ethan_exchangegift)
